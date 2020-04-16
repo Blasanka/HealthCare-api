@@ -3,14 +3,12 @@ package com.blasanka.helthcare.controllers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.blasanka.helthcare.database.DatabaseRef;
 import com.blasanka.helthcare.exceptions.DataNotFoundException;
 import com.blasanka.helthcare.models.Appointment;
-import com.blasanka.helthcare.models.User;
 
 public class AppointmentController {
 	
