@@ -1,6 +1,6 @@
 package com.blasanka.helthcare.models;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
 
