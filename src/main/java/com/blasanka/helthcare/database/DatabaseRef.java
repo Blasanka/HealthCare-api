@@ -11,12 +11,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.blasanka.helthcare.models.Appointment;
+import com.blasanka.helthcare.models.Doctor;
+import com.blasanka.helthcare.models.Hospital;
+import com.blasanka.helthcare.models.Patient;
 import com.blasanka.helthcare.models.User;
 
 public class DatabaseRef {
 	
 	private Connection connection = null;
-	private static Map<Long, User> users = new HashMap<>();
 	
 	public DatabaseRef() {
 		String url = "jdbc:mysql://localhost:3306/helth_care?useUnicode=true"
@@ -41,34 +43,57 @@ public class DatabaseRef {
 			
 			switch (type) {
 				case "patient":
-					sql = "SELECT * FROM appointments WHERE patient_id = " + id;
+					sql = "SELECT * FROM appointments a WHERE a.patient_id = " + id
+							+ " LEFT JOIN doctors d ON d.doctor_id = a.doctor_id"
+							+ " LEFT JOIN patients p ON p.patient_id = a.patient_id"
+							+ " LEFT JOIN hospital h ON h.hospital_id = a.hospital_id"
+							+ " LEFT JOIN users u ON u.user_id = a.user_id";
 					statement = connection.prepareStatement(sql);
 					break;
 				case "doctor":
-					sql = "SELECT * FROM appointments WHERE doctor_id = " + id;
+					sql = "SELECT * FROM appointments a WHERE a.doctor_id = " + id
+							+ " LEFT JOIN doctors d ON d.doctor_id = a.doctor_id"
+							+ " LEFT JOIN patients p ON p.patient_id = a.patient_id"
+							+ " LEFT JOIN hospital h ON h.hospital_id = a.hospital_id"
+							+ " LEFT JOIN users u ON u.user_id = a.user_id";
 					statement = connection.prepareStatement(sql);
 					break;
 				case "hospital":
-					sql = "SELECT * FROM appointments WHERE hospital_id = " + id;
+					sql = "SELECT * FROM appointments a WHERE a.hospital_id = " + id
+							+ " LEFT JOIN doctors d ON d.doctor_id = a.doctor_id"
+							+ " LEFT JOIN patients p ON p.patient_id = a.patient_id"
+							+ " LEFT JOIN hospital h ON h.hospital_id = a.hospital_id"
+							+ " LEFT JOIN users u ON u.user_id = a.user_id";
 					statement = connection.prepareStatement(sql);
 					break;
 				default:
-					sql = "SELECT * FROM appointments";
+					sql = "SELECT * FROM appointments a "
+							+ " LEFT JOIN doctors d ON d.doctor_id = a.doctor_id"
+							+ " LEFT JOIN patients p ON p.patient_id = a.patient_id"
+							+ " LEFT JOIN hospital h ON h.hospital_id = a.hospital_id"
+							+ " LEFT JOIN users u ON u.user_id = a.user_id";
 					statement = connection.prepareStatement(sql);
 					break;
 			}
 			
 			ResultSet rs = statement.executeQuery(sql);
+//			ResultSetMetaData rsmd = rs.getMetaData();
+//			int columnsNumber = rsmd.getColumnCount();
 			while (rs.next()) {
+//				for (int i = 1; i <= columnsNumber; i++) {
+//			        if (i > 1) System.out.print(",  ");
+//			        String columnValue = rs.getString(i);
+//			        System.out.print(columnValue + " " + rsmd.getColumnName(i));
+//			    }
 				Appointment appointment = new Appointment(
 					rs.getLong(1),
-					rs.getLong(2),
-					rs.getLong(3),
-					rs.getLong(4),
-					rs.getLong(5),
 					rs.getDate(6),
 					rs.getDate(7),
-					rs.getDate(8)
+					rs.getDate(8),
+					new Doctor(rs.getLong(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getLong(15)),
+					new Patient(rs.getLong(16), rs.getString(17), rs.getInt(18), rs.getString(19), rs.getString(20), rs.getString(21), rs.getLong(22), rs.getLong(23)),
+					new Hospital(rs.getLong(24), rs.getString(25), rs.getString(26), rs.getString(27), rs.getString(28)),
+					new User(rs.getLong(29), rs.getString(30), rs.getString(31), rs.getString(32), rs.getLong(33), rs.getDate(34))
 				);
 				appointments.put(appointment.getAppointId(), appointment);
 			}
@@ -91,15 +116,15 @@ public class DatabaseRef {
 			ResultSet rs = statement.executeQuery(sql);
 			if (rs.next()) {
 				appointment = new Appointment(
-						rs.getLong(1),
-						rs.getLong(2),
-						rs.getLong(3),
-						rs.getLong(4),
-						rs.getLong(5),
-						rs.getDate(6),
-						rs.getDate(7),
-						rs.getDate(8)
-					);
+					rs.getLong(1),
+					rs.getDate(6),
+					rs.getDate(7),
+					rs.getDate(8),
+					new Doctor(rs.getLong(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getLong(15)),
+					new Patient(rs.getLong(16), rs.getString(17), rs.getInt(18), rs.getString(19), rs.getString(20), rs.getString(21), rs.getLong(22), rs.getLong(23)),
+					new Hospital(rs.getLong(24), rs.getString(25), rs.getString(26), rs.getString(27), rs.getString(28)),
+					new User(rs.getLong(29), rs.getString(30), rs.getString(31), rs.getString(32), rs.getLong(33), rs.getDate(34))
+				);
 			}
 		    rs.close();
 		} catch (SQLException e) {
@@ -172,11 +197,5 @@ public class DatabaseRef {
 		}
 		
 		return affectedRows;
-	}
-	
-	public static Map<Long, User> getUsers() {
-		users.put(1L, new User(1L, "BLA", "bla@gmail.com", "abc123", new Date(System.currentTimeMillis())));
-		users.put(2L, new User(2L, "leo", "leo@gmail.com", "123", new Date(System.currentTimeMillis())));
-		return users;
 	}
 }

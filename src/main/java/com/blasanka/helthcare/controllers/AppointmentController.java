@@ -30,9 +30,9 @@ public class AppointmentController {
 		Collections.sort(appoints, new Comparator<Appointment>() {
 		  public int compare(Appointment o1, Appointment o2) {
 			  if (sort.equals("no")) return Long.compare(o1.getAppointId(), o2.getAppointId());
-			  else if (sort.equals("doctor")) return Long.compare(o1.getDoctorId(), o2.getDoctorId());
 			  else if (sort.equals("user")) return Long.compare(o1.getUserId(), o2.getUserId());
-			  else if (sort.equals("hospital")) return Long.compare(o1.getHospitalId(), o2.getHospitalId());
+			  else if (sort.equals("doctor")) return o1.getDoctor().compareTo(o2.getDoctor());
+			  else if (sort.equals("hospital")) return o1.getHospital().compareTo(o2.getHospital());
 		      return o1.getDate().compareTo(o2.getDate());
 		  }
 		});

@@ -2,6 +2,7 @@ package com.blasanka.helthcare.models;
 
 import java.sql.Date;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -15,11 +16,15 @@ public class Appointment {
 	private Date date;
 	private Date time;
 	private Date createdAt;
+	private Doctor doctor;
+	private Patient patient;
+	private Hospital hospital;
+	private User user;
 
 	public Appointment() {
 		super();
 	}
-
+	
 	public Appointment(long appointId, long userId, long patientId, long doctorId, long hospitalId, Date date,
 			Date time, Date createdAt) {
 		super();
@@ -33,6 +38,19 @@ public class Appointment {
 		this.createdAt = createdAt;
 	}
 
+	public Appointment(long appointId, Date date,
+			Date time, Date createdAt, Doctor doctor, Patient patient, Hospital hospital, User user) {
+		super();
+		this.appointId = appointId;
+		this.date = date;
+		this.time = time;
+		this.createdAt = createdAt;
+		this.doctor = doctor;
+		this.patient = patient;
+		this.hospital = hospital;
+		this.user = user;
+	}
+
 	public long getAppointId() {
 		return appointId;
 	}
@@ -41,6 +59,7 @@ public class Appointment {
 		this.appointId = appointId;
 	}
 
+	@JsonbTransient
 	public long getUserId() {
 		return userId;
 	}
@@ -48,7 +67,8 @@ public class Appointment {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-
+	
+	@JsonbTransient
 	public long getPatientId() {
 		return patientId;
 	}
@@ -56,7 +76,8 @@ public class Appointment {
 	public void setPatientId(long patientId) {
 		this.patientId = patientId;
 	}
-
+	
+	@JsonbTransient
 	public long getDoctorId() {
 		return doctorId;
 	}
@@ -64,13 +85,22 @@ public class Appointment {
 	public void setDoctorId(long doctorId) {
 		this.doctorId = doctorId;
 	}
-
+	
+	@JsonbTransient
 	public long getHospitalId() {
 		return hospitalId;
 	}
 
 	public void setHospitalId(long hospitalId) {
 		this.hospitalId = hospitalId;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
 	public Date getDate() {
@@ -95,6 +125,30 @@ public class Appointment {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

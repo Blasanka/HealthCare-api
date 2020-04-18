@@ -2,27 +2,31 @@ package com.blasanka.helthcare.models;
 
 import java.sql.Date;
 
+import javax.json.bind.annotation.JsonbTransient;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class User {
 
 	private Long userId;
 	private String email;
 	private String username;
 	private String password;
+	private long roleId;
 	private Date createdAt;
 	
 	public User() {
 	}
 	
-	public User(Long userId, String email, String username, String password, Date createdAt) {
+	public User(Long userId, String email, String username, String password, long roleId, Date createdAt) {
 		super();
 		this.userId = userId;
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.roleId = roleId;
 		this.createdAt = createdAt;
 	}
-
-
 
 	public Long getUserId() {
 		return userId;
@@ -48,12 +52,21 @@ public class User {
 		this.username = username;
 	}
 
+	@JsonbTransient
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
 
 	public Date getCreatedAt() {

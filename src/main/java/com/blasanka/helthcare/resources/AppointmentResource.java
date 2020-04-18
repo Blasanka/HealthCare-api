@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import com.blasanka.helthcare.controllers.AppointmentController;
@@ -52,21 +53,29 @@ public class AppointmentResource {
 	@POST
 	public Response addAppointment(Appointment appointment, @Context UriInfo info) {
 		int count = controller.addAppointment(appointment);
+		Status status = Status.CREATED;
+		if (count == 0) status = Status.BAD_REQUEST;
 		URI uri = info.getAbsolutePathBuilder().path(String.valueOf(count)).build();
-		return Response.created(uri).entity(count).build();
+		return Response.created(uri).status(status).entity(count).build();
 	}
 
 	@PUT
 	@Path("/{appointId}")
-	public int updateAppointment(@PathParam("appointId") long id, Appointment appointment) {
+	public Response updateAppointment(@PathParam("appointId") long id, Appointment appointment) {
 		appointment.setAppointId(id);
-		return controller.updateAppointment(appointment);
+		int count = controller.updateAppointment(appointment);
+		Status status = Status.NO_CONTENT;
+		if (count == 0) status = Status.BAD_REQUEST;
+		return Response.status(status).entity(count).build();
 	}
 	
 	@DELETE
 	@Path("/{appointId}")
-	public int deleteAppointment(@PathParam("appointId") long id) {
-		return controller.removeAppointment(id);
+	public Response deleteAppointment(@PathParam("appointId") long id) {
+		int count = controller.removeAppointment(id);
+		Status status = Status.NO_CONTENT;
+		if (count == 0) status = Status.BAD_REQUEST;
+		return Response.status(status).entity(count).build();
 	}
 	
 }
