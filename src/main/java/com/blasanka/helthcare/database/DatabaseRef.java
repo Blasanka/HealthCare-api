@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,6 +133,47 @@ public class DatabaseRef {
 		return affectedRows;
 	}
 
+	public int updateAppointment(Appointment appointment) {
+		String sql = "UPDATE appointments SET "
+				+ "doctor_id = ?,"
+				+ "hospital_id = ?,"
+				+ "date = ?,"
+				+ "time = ? "
+				+ "WHERE appoint_id = ?";
+		
+		PreparedStatement statement;
+		int affectedRows = 0;
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setLong(1, appointment.getDoctorId());
+			statement.setLong(2, appointment.getHospitalId());
+			statement.setDate(3, appointment.getDate());
+			statement.setDate(4, appointment.getDate());
+			statement.setLong(5, appointment.getAppointId());
+			affectedRows = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return affectedRows;
+	}
+
+	public int deleteAppointment(long id) {
+		String sql = "DELETE FROM appointments WHERE appoint_id = ?";
+		
+		PreparedStatement statement;
+		int affectedRows = 0;
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setLong(1, id);
+			affectedRows = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return affectedRows;
+	}
+	
 	public static Map<Long, User> getUsers() {
 		users.put(1L, new User(1L, "BLA", "bla@gmail.com", "abc123", new Date(System.currentTimeMillis())));
 		users.put(2L, new User(2L, "leo", "leo@gmail.com", "123", new Date(System.currentTimeMillis())));

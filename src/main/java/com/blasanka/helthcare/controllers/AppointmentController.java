@@ -58,16 +58,14 @@ public class AppointmentController {
 		return dbRef.addAppointment(appointment);
 	}
 	
-	public Appointment updateAppointment(Appointment appointment) {
-		Map<Long, Appointment> appointments = dbRef.getAppointments("", 0L);
-		if (appointment.getAppointId() <= 0) return null;
-		appointments.put(appointment.getAppointId(), appointment);
-		return appointment;
+	public int updateAppointment(Appointment appointment) {
+		if (appointment.getAppointId() <= 0) return 0;
+		return dbRef.updateAppointment(appointment);
 	}
 	
-	public Appointment removeAppointment(long id) {
-		Map<Long, Appointment> appointments = dbRef.getAppointments("", 0L);
-		return appointments.remove(id);
+	public int removeAppointment(long id) {
+		if (id <= 0) return 0;
+		return dbRef.deleteAppointment(id);
 	}
 	
 }

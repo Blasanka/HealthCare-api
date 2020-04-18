@@ -1,7 +1,6 @@
 package com.blasanka.helthcare.models;
 
 import java.sql.Date;
-import java.sql.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
