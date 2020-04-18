@@ -108,7 +108,7 @@ public class DatabaseRef {
 	public Appointment getAppointment(long id) {
 		
 		Appointment appointment = new Appointment();
-		String sql = "SELECT * FROM appointments WHERE appointId='"+ id +"'";
+		String sql = "SELECT * FROM appointments WHERE appoint_id='"+ id +"'";
 		
 		Statement statement;
 		try {

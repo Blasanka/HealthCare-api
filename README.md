@@ -14,7 +14,8 @@ Headers:
 
 Output:
 
-```[
+```
+[
     {
         "appointId": 1,
         "createdAt": "2020-04-28Z",
@@ -48,7 +49,15 @@ Output:
         "time": "2020-04-17Z",
         "userId": 1
     }
-]```
+]
+```
+
+### Get a user
+
+`GET` http://localhost:8080/user-service/users/1
+
+Headers:
+`{"Content-Type": "application/json", "token": token}`
 
 ### Add new appointments
 
@@ -61,14 +70,16 @@ Headers:
 
 Body:
 
-```{
+```
+{
     "patientId": 1,
     "doctorId": 1,
     "hospitalId": 1,
     "userId": 5,
     "date": "2010-05-11",
     "time": "2012-05-21"
-}```
+}
+```
 
 Output:
 
@@ -87,12 +98,14 @@ Headers:
 
 Body:
 
-```{
+```
+{
     "doctorId": 1,
     "hospitalId": 1,
     "date": "2010-05-11",
     "time": "2012-05-21"
-}```
+}
+```
 
 Output:
 
