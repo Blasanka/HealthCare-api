@@ -22,6 +22,7 @@ import javax.ws.rs.core.UriInfo;
 import org.appointments.controllers.AppointmentController;
 import org.appointments.models.Appointment;
 import org.appointments.resources.beans.AppointmentFilterBean;
+import org.appointments.exceptions.UnAuthorizedException;
 
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -40,7 +41,7 @@ public class AppointmentResource {
 			if (bean.getType() != null) return controller.getAppointments(bean.getType(), bean.getId());
 			else return controller.getAppointments("appointment", bean.getId());
 		} else {
-			return new ArrayList<Appointment>();
+			throw new UnAuthorizedException("Authentication failed");
 		}
 	}
 	
