@@ -8,8 +8,7 @@ Endpoint:
 `GET` <a href="http://localhost:8080/helthcare/appointments/">
 http://localhost:8080/helthcare/appointments/</a>
 
-Headers:
-`{"Content-Type": "application/json", "token": token}`
+Headers: `{"Content-Type": "application/json", "x-authorization": "5f26b9d8-651e-4bbe-805f-0850edfab84d.1587272695700"}`
 
 
 Output:
@@ -56,8 +55,7 @@ Output:
 
 `GET` http://localhost:8080/user-service/users/1
 
-Headers:
-`{"Content-Type": "application/json", "token": token}`
+Headers: `{"Content-Type": "application/json", "x-authorization": "5f26b9d8-651e-4bbe-805f-0850edfab84d.1587272695700"}`
 
 ### Add new appointments
 
@@ -65,8 +63,7 @@ Endpoint:
 `POST` <a href="http://localhost:8080/helthcare/appointments/">
 http://localhost:8080/helthcare/appointments/</a>
 
-Headers:
-`{"Content-Type": "application/json", "token": token}`
+Headers: `{"Content-Type": "application/json", "x-authorization": "5f26b9d8-651e-4bbe-805f-0850edfab84d.1587272695700"}`
 
 Body:
 
@@ -93,8 +90,7 @@ Endpoint:
 `PUT` <a href="http://localhost:8080/helthcare/appointments/1">
 http://localhost:8080/helthcare/appointments/</a>
 
-Headers:
-`{"Content-Type": "application/json", "token": token}`
+Headers: `{"Content-Type": "application/json", "x-authorization": "5f26b9d8-651e-4bbe-805f-0850edfab84d.1587272695700"}`
 
 Body:
 
@@ -118,8 +114,7 @@ Endpoint:
 `DELETE` <a href="http://localhost:8080/helthcare/appointments/2">
 http://localhost:8080/helthcare/appointments/</a>
 
-Headers:
-`{"Content-Type": "application/json", "token": token}`
+Headers: `{"Content-Type": "application/json", "x-authorization": "5f26b9d8-651e-4bbe-805f-0850edfab84d.1587272695700"}`
 
 Output:
 
